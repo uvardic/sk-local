@@ -1,6 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
 
 group 'sk'
 
@@ -19,9 +17,15 @@ repositories {
 
 libsDirName = '../../sk-libs'
 
-jar {
-    baseName = 'local-system'
+task uberJar(type: Jar) {
     version = (findProperty('sk_local_lib_version'))
+
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
 }
 
 dependencies {

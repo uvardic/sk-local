@@ -2,15 +2,18 @@ package local;
 
 import meta.FileMetaData;
 import system.FileSystem;
+import system.FileSystemManager;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
-public class LocalFileSystemImplementation implements FileSystem {
+public class LocalFileSystemImplementation implements FileSystem<File> {
 
-    public LocalFileSystemImplementation() {}
+    static {
+        FileSystemManager.registerSystem(new LocalFileSystemImplementation());
+    }
+
+    private LocalFileSystemImplementation() {}
 
     @Override
     public void initialize() {
@@ -23,42 +26,37 @@ public class LocalFileSystemImplementation implements FileSystem {
     }
 
     @Override
-    public void upload(File file, String s) {
+    public void excludeFileExtension(String fileExtension) {
 
     }
 
     @Override
-    public void upload(File file, String s, FileMetaData fileMetaData) {
+    public void upload(String filePath, String destinationPath) {
 
     }
 
     @Override
-    public void uploadCollection(Collection<File> collection, String s) {
+    public void upload(String filePath, FileMetaData fileMetaData, String destinationPath) {
 
     }
 
     @Override
-    public void uploadCollection(Map<File, FileMetaData> map, String s) {
+    public void uploadCollection(List<String> filePaths, String destinationPath) {
 
     }
 
     @Override
-    public void download(File file) {
+    public void download(String path) {
 
     }
 
     @Override
-    public void downloadCollection(List<File> list) {
+    public void downloadMultiple(List<String> paths) {
 
     }
 
     @Override
-    public void createDir(String s, String s1) {
-
-    }
-
-    @Override
-    public void excludeFileExtension(String s) {
+    public void createDir(String dirPath) {
 
     }
 
@@ -68,12 +66,22 @@ public class LocalFileSystemImplementation implements FileSystem {
     }
 
     @Override
-    public List<File> findByName(String s) {
+    public List<File> findFileByName(String name) {
         return null;
     }
 
     @Override
-    public List<File> findByExtension(String s) {
+    public List<File> findFileByExtension(String extension) {
+        return null;
+    }
+
+    @Override
+    public List<File> findFileByParent(File parent) {
+        return null;
+    }
+
+    @Override
+    public List<File> findDirectory(String name) {
         return null;
     }
 }
